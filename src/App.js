@@ -1,23 +1,39 @@
-import logo from './logo.svg';
+import { useState } from 'react';
 import './App.css';
+import Lists from './components/Lists';
+import Search from './components/Search';
 
 function App() {
+
+  const [data, setData] = useState([])
+  const [first, setFirst] = useState(true)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  const updateData = (userData) => {
+    setData(userData)
+    console.log(userData)
+  }
+
+  const updateFirst = () => {
+    setFirst(false)
+  }
+
+  const updateLoading = (state) => {
+    setLoading(state)
+  }
+
+  const updateError = (error) => {
+    setError(error)
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Search updateData={updateData} 
+              updateFirst={updateFirst} 
+              updateLoading={updateLoading} 
+              updateError={updateError}/>
+      <Lists data={data} first={first} loading={loading} error={error}/>
     </div>
   );
 }
